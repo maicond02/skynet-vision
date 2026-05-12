@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import "primereact/resources/themes/lara-dark-blue/theme.css";
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -23,4 +23,15 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* PrimeReact Menubar (Navbar) transparente */
+.skynet-navbar.p-menubar {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.skynet-navbar.p-menubar .p-menubar-root-list {
+  background: transparent !important;
 }
