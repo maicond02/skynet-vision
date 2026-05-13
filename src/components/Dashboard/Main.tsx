@@ -1,41 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-import { Avatar } from "primereact/avatar";
 import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Menu } from "primereact/menu";
-import type { Menu as MenuType } from "primereact/menu";
 import { Tag } from "primereact/tag";
 
-type StatusLevel = "HIGH" | "MILD" | "NONE" | "ERROR" | string;
+import { monitoringService } from "../../features/monitoring/services/monitoring.service";
+import type {
+	DashboardStatus,
+	StatusLevel,
+} from "../../features/monitoring/types/monitoring.types";
 
-type DashboardStatus = {
-	level: StatusLevel;
-	max_confidence: number;
-	detections: number;
-	alert: string;
-	logs: string[];
-};
-
-type SidebarItem = {
-	label: string;
-	icon: string;
-	route: string;
-};
-
-const API_BASE_URL = "http://localhost:8001";
-
-const sidebarItems: SidebarItem[] = [
-	{ label: "Dashboard", icon: "pi-home", route: "/dashboard" },
-	{ label: "Incidentes", icon: "pi-exclamation-triangle", route: "/incidents" },
-	{ label: "Configurações", icon: "pi-cog", route: "/settings" },
-	{ label: "Relatórios", icon: "pi-chart-bar", route: "/reports" },
-	{ label: "Usuários", icon: "pi-users", route: "/team-management" },
-];
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
 
 function getFormattedDate() {
 	return new Date().toLocaleDateString("pt-BR", {
@@ -65,160 +42,8 @@ function getSeverityTag(level: StatusLevel) {
 	}
 }
 
-function Sidebar() {
-	const pathname = usePathname();
-	const router = useRouter();
-
-	function isRouteActive(route: string) {
-		return pathname === route || pathname.startsWith(`${route}/`);
-	}
-
-	function handleLogout() {
-		localStorage.removeItem("token");
-		localStorage.removeItem("user");
-		router.push("/auth/login");
-	}
-
-	return (
-		<aside className="fixed inset-y-0 left-0 z-[1000] hidden w-[280px] flex-col border-r border-white/10 bg-black/40 text-slate-200 backdrop-blur-md lg:flex">
-			<div className="flex items-center gap-3 p-4 text-[1.2rem] font-bold tracking-wide text-zinc-50">
-				<i className="pi pi-shield text-[1.3rem]" />
-				<span>Skynet</span>
-			</div>
-
-			<nav className="flex-1 overflow-y-auto px-3 pt-2">
-				<ul className="m-0 flex list-none flex-col gap-1.5 p-0">
-					{sidebarItems.map((item) => {
-						const active = isRouteActive(item.route);
-
-						return (
-							<li key={item.route}>
-								<Link
-									href={item.route}
-									className={`flex items-center gap-3 rounded-lg p-3 text-gray-300 no-underline transition-colors hover:bg-white/10 hover:text-white ${
-										active ? "bg-white/20 font-medium text-white" : ""
-									}`}
-								>
-									<i className={`pi ${item.icon} text-[1.1rem]`} />
-									<span className="whitespace-nowrap text-[0.95rem]">
-										{item.label}
-									</span>
-								</Link>
-							</li>
-						);
-					})}
-				</ul>
-			</nav>
-
-			<div className="mt-auto px-3 py-4">
-				<button
-					type="button"
-					onClick={handleLogout}
-					className="w-full rounded-lg px-4 py-2 text-sm font-medium text-slate-200 transition-colors hover:bg-white/10"
-				>
-					<i className="pi pi-sign-out mr-2 align-[-2px]" />
-					Sair
-				</button>
-			</div>
-		</aside>
-	);
-}
-
-function Topbar() {
-	const router = useRouter();
-	const menuRef = useRef<MenuType>(null);
-	const [userInitial, setUserInitial] = useState("U");
-
-	useEffect(() => {
-		const savedUser = localStorage.getItem("user");
-
-		if (!savedUser) {
-			setUserInitial("U");
-			return;
-		}
-
-		try {
-			const user = JSON.parse(savedUser);
-			const email = user?.email as string | undefined;
-
-			if (email) {
-				setUserInitial(email.charAt(0).toUpperCase());
-			}
-		} catch {
-			setUserInitial("U");
-		}
-	}, []);
-
-	const menuItems = [
-		{
-			label: "Sair",
-			icon: "pi pi-sign-out",
-			command: () => {
-				localStorage.removeItem("token");
-				localStorage.removeItem("user");
-				router.push("/auth/login");
-			},
-		},
-	];
-
-	return (
-		<header className="sticky top-0 z-[999] border-b border-white/10 bg-black px-4 py-4 lg:px-6">
-			<style jsx global>{`
-				.dashboard-search .p-inputtext {
-					width: 100%;
-					background: rgba(255, 255, 255, 0.08);
-					border: 1px solid rgba(255, 255, 255, 0.15);
-					color: #fff;
-					border-radius: 10px;
-					padding: 0.75rem 1rem 0.75rem 2.5rem;
-				}
-
-				.dashboard-search .p-inputtext::placeholder {
-					color: rgba(255, 255, 255, 0.5);
-				}
-
-				.dashboard-search .p-inputtext:focus {
-					background: rgba(255, 255, 255, 0.12);
-					border-color: #3ea1ff;
-					box-shadow: 0 0 0 3px rgba(62, 161, 255, 0.15);
-				}
-			`}</style>
-
-			<div className="flex items-center justify-end gap-4">
-				<div className="dashboard-search relative hidden w-full max-w-[420px] sm:block">
-					<i className="pi pi-search absolute left-3 top-1/2 z-10 -translate-y-1/2 text-white/60" />
-					<InputText placeholder="Buscar..." className="w-full" />
-				</div>
-
-				<div className="relative">
-					<Button
-						icon="pi pi-bell"
-						text
-						rounded
-						severity="secondary"
-						className="text-white/80 hover:bg-white/10"
-					/>
-					<span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-red-500 px-1 text-[0.7rem] font-bold text-white">
-						4
-					</span>
-				</div>
-
-				<Avatar
-					label={userInitial}
-					size="large"
-					shape="circle"
-					onClick={(event) => menuRef.current?.toggle(event)}
-					className="cursor-pointer border-2 border-white/20 bg-gradient-to-br from-sky-400 to-violet-600 font-semibold text-white transition hover:scale-105"
-				/>
-
-				<Menu ref={menuRef} model={menuItems} popup />
-			</div>
-		</header>
-	);
-}
-
 export default function DashboardPage() {
-	const videoFeedUrl = `${API_BASE_URL}/video_feed`;
+	const videoFeedUrl = monitoringService.getVideoFeedUrl();
 
 	const [currentTime, setCurrentTime] = useState(getFormattedTime());
 	const [currentDate, setCurrentDate] = useState(getFormattedDate());
@@ -241,15 +66,7 @@ export default function DashboardPage() {
 
 	async function fetchStatus() {
 		try {
-			const response = await fetch(`${API_BASE_URL}/status_view`, {
-				cache: "no-store",
-			});
-
-			if (!response.ok) {
-				throw new Error("Falha ao buscar status");
-			}
-
-			const data = await response.json();
+			const data = await monitoringService.getStatusView();
 
 			setStatus((current) => ({
 				level: data.level ?? current.level,
