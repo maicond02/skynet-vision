@@ -15,7 +15,7 @@ const sidebarItems: SidebarItem[] = [
 	{ label: "Incidentes", icon: "pi-exclamation-triangle", route: "/incidents" },
 	{ label: "Configurações", icon: "pi-cog", route: "/config" },
 	{ label: "Relatórios", icon: "pi-chart-bar", route: "/reports" },
-	{ label: "Usuários", icon: "pi-users", route: "/team-management" },
+	{ label: "Usuários", icon: "pi-users", route: "/users" },
 ];
 
 export default function Sidebar() {
