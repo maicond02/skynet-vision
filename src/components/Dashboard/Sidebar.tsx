@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
+import { logoutLocalUser } from "../../features/auth/services/auth.service";
+
 type SidebarItem = {
 	label: string;
 	icon: string;
@@ -27,8 +29,7 @@ export default function Sidebar() {
 	}
 
 	function handleLogout() {
-		localStorage.removeItem("token");
-		localStorage.removeItem("user");
+		logoutLocalUser();
 		router.push("/auth/login");
 	}
 

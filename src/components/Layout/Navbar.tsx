@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
@@ -43,19 +44,9 @@ export default function Navbar() {
     ];
 
     const start = (
-        <button
-            type="button"
-            onClick={() => router.push("/")}
-            className="mr-4 flex items-center gap-2 text-left"
-        >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500 shadow-lg shadow-sky-500/20">
-                <i className="pi pi-eye text-white" />
-            </span>
-
-            <span className="text-lg font-bold tracking-tight text-white">
-                SKYNET<span className="text-sky-400">-VISION</span>
-            </span>
-        </button>
+        <Link href="/" className="mr-4 text-lg font-bold tracking-tight text-white">
+            SKYNET<span className="text-sky-400">-VISION</span>
+        </Link>
     );
 
     const end = (

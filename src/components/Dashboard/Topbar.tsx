@@ -9,29 +9,39 @@ import { InputText } from "primereact/inputtext";
 import { Menu } from "primereact/menu";
 import type { Menu as MenuType } from "primereact/menu";
 
+import {
+	getAuthenticatedUser,
+	logoutLocalUser,
+} from "../../features/auth/services/auth.service";
+
 export default function Topbar() {
 	const router = useRouter();
 	const menuRef = useRef<MenuType>(null);
 	const [userInitial, setUserInitial] = useState("U");
 
 	useEffect(() => {
-		const savedUser = localStorage.getItem("user");
+		const user = getAuthenticatedUser();
 
-		if (!savedUser) {
-			setUserInitial("U");
+		if (!user) {
+			router.replace("/auth/login");
 			return;
 		}
 
-		try {
-			const user = JSON.parse(savedUser);
-			const email = user?.email as string | undefined;
+		setUserInitial((user.name || user.email).charAt(0).toUpperCase());
+	}, [router]);
 
-			if (email) {
-				setUserInitial(email.charAt(0).toUpperCase());
-			}
-		} catch {
-			setUserInitial("U");
+	useEffect(() => {
+		function handleStorageChange() {
+			const user = getAuthenticatedUser();
+			setUserInitial(user ? (user.name || user.email).charAt(0).toUpperCase() : "U");
 		}
+
+		window.addEventListener("storage", handleStorageChange);
+		handleStorageChange();
+
+		return () => {
+			window.removeEventListener("storage", handleStorageChange);
+		};
 	}, []);
 
 	const menuItems = [
@@ -39,8 +49,7 @@ export default function Topbar() {
 			label: "Sair",
 			icon: "pi pi-sign-out",
 			command: () => {
-				localStorage.removeItem("token");
-				localStorage.removeItem("user");
+				logoutLocalUser();
 				router.push("/auth/login");
 			},
 		},
