@@ -6,6 +6,8 @@ import type {
 	RegisterPayload,
 } from "../types/auth.types";
 
+import { loginAuthApi, registerAuthApi } from "./auth.api";
+
 const USERS_STORAGE_KEY = "skynet-vision:auth-users";
 const SESSION_STORAGE_KEY = "skynet-vision:auth-session";
 const LEGACY_TOKEN_KEY = "token";
@@ -73,6 +75,71 @@ function readUsers() {
 
 function writeUsers(users: AuthUser[]) {
 	writeJson(USERS_STORAGE_KEY, users);
+}
+
+function normalizeAuthToken(value: string) {
+	const trimmed = value.trim();
+
+	if (!trimmed) {
+		return createToken();
+	}
+
+	return trimmed;
+}
+
+function getUserNameFallback(email: string) {
+	const localPart = email.split("@")[0]?.trim();
+
+	return localPart || email;
+}
+
+function findLocalUserByEmail(email: string) {
+	const normalizedEmail = normalizeEmail(email);
+
+	return readUsers().find((user) => normalizeEmail(user.email) === normalizedEmail) ?? null;
+}
+
+function createSessionForUser(user: AuthUser, token: string, rememberMe: boolean) {
+	return {
+		token,
+		user: publicUser(user),
+		rememberMe,
+		createdAt: new Date().toISOString(),
+	} satisfies AuthSession;
+}
+
+function persistAuthenticatedUser(user: AuthUser, token: string, rememberMe: boolean) {
+	const session = createSessionForUser(user, token, rememberMe);
+	persistSession(session);
+	return session;
+}
+
+function syncLocalUserAfterRegister(payload: RegisterPayload) {
+	const existingUser = findLocalUserByEmail(payload.email);
+
+	if (existingUser) {
+		return updateLocalUser(existingUser.id, {
+			name: payload.name,
+			email: payload.email,
+			password: payload.password,
+		});
+	}
+
+	return createLocalUser(payload);
+}
+
+function syncLocalUserAfterLogin(payload: LoginCredentials) {
+	const existingUser = findLocalUserByEmail(payload.email);
+
+	if (existingUser) {
+		return existingUser;
+	}
+
+	return createLocalUser({
+		name: getUserNameFallback(payload.email),
+		email: payload.email,
+		password: payload.password,
+	});
 }
 
 export function getLocalUsers() {
@@ -226,44 +293,50 @@ export function getAuthenticatedUser() {
 }
 
 export async function registerLocalUser(payload: RegisterPayload) {
-	const user = createLocalUser(payload);
+	try {
+		const apiToken = await registerAuthApi(payload);
+		const user = syncLocalUserAfterRegister(payload);
 
-	const session: AuthSession = {
-		token: createToken(),
-		user: publicUser(user),
-		rememberMe: true,
-		createdAt: new Date().toISOString(),
-	};
+		return persistAuthenticatedUser(user, normalizeAuthToken(apiToken), true);
+	} catch {
+		const user = createLocalUser(payload);
 
-	persistSession(session);
-
-	return session;
+		return persistAuthenticatedUser(user, createToken(), true);
+	}
 }
 
 export async function loginLocalUser(payload: LoginCredentials) {
-	const email = normalizeEmail(payload.email);
-	const password = payload.password;
+	try {
+		const apiToken = await loginAuthApi(payload);
+		const user = syncLocalUserAfterLogin(payload);
 
-	if (!email || !password) {
-		throw new Error("Preencha seu e-mail e senha para entrar.");
+		return persistAuthenticatedUser(
+			user,
+			normalizeAuthToken(apiToken),
+			Boolean(payload.rememberMe),
+		);
+	} catch {
+		const email = normalizeEmail(payload.email);
+		const password = payload.password;
+
+		if (!email || !password) {
+			throw new Error("Preencha seu e-mail e senha para entrar.");
+		}
+
+		const user = readUsers().find(
+			(item) => item.email === email && item.password === password,
+		);
+
+		if (!user) {
+			throw new Error("E-mail ou senha inválidos.");
+		}
+
+		return persistAuthenticatedUser(
+			user,
+			createToken(),
+			Boolean(payload.rememberMe),
+		);
 	}
-
-	const user = readUsers().find((item) => item.email === email && item.password === password);
-
-	if (!user) {
-		throw new Error("E-mail ou senha inválidos.");
-	}
-
-	const session: AuthSession = {
-		token: createToken(),
-		user: publicUser(user),
-		rememberMe: Boolean(payload.rememberMe),
-		createdAt: new Date().toISOString(),
-	};
-
-	persistSession(session);
-
-	return session;
 }
 
 export function logoutLocalUser() {
