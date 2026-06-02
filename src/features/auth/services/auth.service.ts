@@ -75,6 +75,114 @@ function writeUsers(users: AuthUser[]) {
 	writeJson(USERS_STORAGE_KEY, users);
 }
 
+export function getLocalUsers() {
+	return readUsers();
+}
+
+export function getLocalUserById(id: string) {
+	return readUsers().find((user) => user.id === id) ?? null;
+}
+
+export function createLocalUser(payload: RegisterPayload) {
+	const name = payload.name.trim();
+	const email = normalizeEmail(payload.email);
+	const password = payload.password;
+
+	if (!name || !email || !password) {
+		throw new Error("Preencha todos os campos para continuar.");
+	}
+
+	const users = readUsers();
+	const existingUser = users.find((user) => normalizeEmail(user.email) === email);
+
+	if (existingUser) {
+		throw new Error("Já existe uma conta cadastrada com este e-mail.");
+	}
+
+	const user: AuthUser = {
+		id: globalThis.crypto?.randomUUID?.() ?? `user-${Date.now()}`,
+		name,
+		email,
+		password,
+		createdAt: new Date().toISOString(),
+	};
+
+	writeUsers([...users, user]);
+
+	return user;
+}
+
+type UpdateLocalUserPayload = {
+	name: string;
+	email: string;
+	password?: string;
+};
+
+export function updateLocalUser(id: string, payload: UpdateLocalUserPayload) {
+	const name = payload.name.trim();
+	const email = normalizeEmail(payload.email);
+	const password = payload.password?.trim();
+
+	if (!name || !email) {
+		throw new Error("Preencha nome e e-mail para salvar.");
+	}
+
+	const users = readUsers();
+	const index = users.findIndex((user) => user.id === id);
+
+	if (index < 0) {
+		throw new Error("Usuário não encontrado.");
+	}
+
+	const emailOwner = users.find(
+		(user) => normalizeEmail(user.email) === email && user.id !== id,
+	);
+
+	if (emailOwner) {
+		throw new Error("Já existe outro usuário cadastrado com este e-mail.");
+	}
+
+	const currentUser = users[index];
+	const updatedUser: AuthUser = {
+		...currentUser,
+		name,
+		email,
+		password: password ? password : currentUser.password,
+	};
+
+	const nextUsers = [...users];
+	nextUsers[index] = updatedUser;
+	writeUsers(nextUsers);
+
+	const session = getStoredSession();
+	if (session && session.user.id === id) {
+		persistSession({
+			...session,
+			user: publicUser(updatedUser),
+		});
+	}
+
+	return updatedUser;
+}
+
+export function deleteLocalUser(id: string) {
+	const users = readUsers();
+	const userToDelete = users.find((user) => user.id === id);
+
+	if (!userToDelete) {
+		throw new Error("Usuário não encontrado.");
+	}
+
+	writeUsers(users.filter((user) => user.id !== id));
+
+	const session = getStoredSession();
+	if (session && session.user.id === id) {
+		logoutLocalUser();
+	}
+
+	return userToDelete;
+}
+
 function persistSession(session: AuthSession) {
 	writeJson(SESSION_STORAGE_KEY, session);
 	window.localStorage.setItem(LEGACY_TOKEN_KEY, session.token);
@@ -118,28 +226,7 @@ export function getAuthenticatedUser() {
 }
 
 export async function registerLocalUser(payload: RegisterPayload) {
-	const name = payload.name.trim();
-	const email = normalizeEmail(payload.email);
-	const password = payload.password;
-
-	if (!name || !email || !password) {
-		throw new Error("Preencha todos os campos para continuar.");
-	}
-
-	const users = readUsers();
-	const existingUser = users.find((user) => normalizeEmail(user.email) === email);
-
-	if (existingUser) {
-		throw new Error("Já existe uma conta cadastrada com este e-mail.");
-	}
-
-	const user: AuthUser = {
-		id: globalThis.crypto?.randomUUID?.() ?? `user-${Date.now()}`,
-		name,
-		email,
-		password,
-		createdAt: new Date().toISOString(),
-	};
+	const user = createLocalUser(payload);
 
 	const session: AuthSession = {
 		token: createToken(),
@@ -148,7 +235,6 @@ export async function registerLocalUser(payload: RegisterPayload) {
 		createdAt: new Date().toISOString(),
 	};
 
-	writeUsers([...users, user]);
 	persistSession(session);
 
 	return session;
