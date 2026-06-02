@@ -1,3 +1,11 @@
+<div align="center">
+	<img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+	<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+	<img src="https://img.shields.io/badge/PrimeReact-0E1E2A?style=for-the-badge&logo=prime&logoColor=white" alt="PrimeReact" />
+	<img src="https://img.shields.io/badge/Tailwind_CSS-0F172A?style=for-the-badge&logo=tailwindcss&logoColor=38BDF8" alt="Tailwind CSS" />
+	<img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+</div>
+
 # 🛰️ Skynet Vision - Plataforma de IA para Seguranca Publica
 
 Sistema inteligente de monitoramento urbano com Visao Computacional, analise em tempo real e interface analitica para operadores e gestores.
@@ -151,11 +159,55 @@ npm run lint    # Lint do codigo
 
 ## 👥 Equipe de Desenvolvimento
 
-- Carlos Alberto de Aguiar
-- Joao Marcos Racanelli
-- Leonardo Marcondeli
-- Maicon Douglas Mendes Alves
-- Vinicius de Moraes de Godoi
+<table>
+	<tr>
+		<td align="center">
+			<a href="https://github.com/Krllos31">
+				<img src="https://github.com/Krllos31.png" width="100px" alt="Carlos" />
+				<br />
+				<sub><b>Carlos Alberto de Aguiar</b></sub>
+			</a>
+			<br />
+			<sub>Developer</sub>
+		</td>
+		<td align="center">
+			<a href="https://github.com/JRacanelli16">
+				<img src="https://github.com/JRacanelli16.png" width="100px" alt="Joao" />
+				<br />
+				<sub><b>Joao Marcos Racanelli</b></sub>
+			</a>
+			<br />
+			<sub>Developer</sub>
+		</td>
+		<td align="center">
+			<a href="https://github.com/LeonardoMarcondeli">
+				<img src="https://github.com/LeonardoMarcondeli.png" width="100px" alt="Leonardo" />
+				<br />
+				<sub><b>Leonardo Marcondeli</b></sub>
+			</a>
+			<br />
+			<sub>Developer</sub>
+		</td>
+		<td align="center">
+			<a href="https://github.com/maicond02">
+				<img src="https://github.com/maicond02.png" width="100px" alt="Maicon" />
+				<br />
+				<sub><b>Maicon Douglas Mendes Alves</b></sub>
+			</a>
+			<br />
+			<sub>Developer</sub>
+		</td>
+		<td align="center">
+			<a href="https://github.com/viMoraes10">
+				<img src="https://github.com/viMoraes10.png" width="100px" alt="Vinicius" />
+				<br />
+				<sub><b>Vinicius de Moraes de Godoi</b></sub>
+			</a>
+			<br />
+			<sub>Developer</sub>
+		</td>
+	</tr>
+</table>
 
 ## 📄 Licenca
 
