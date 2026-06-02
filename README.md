@@ -1,36 +1,168 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛰️ Skynet Vision - Plataforma de IA para Seguranca Publica
 
-## Getting Started
+Sistema inteligente de monitoramento urbano com Visao Computacional, analise em tempo real e interface analitica para operadores e gestores.
 
-First, run the development server:
+**UNISAL - Centro Universitario Salesiano de Sao Paulo**  
+Engenharia de Computacao - 9o semestre
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+Americana - SP • Campus Maria Auxiliadora • 2026
+
+**Orientador:** M.Sc. Paulo Da Silva Soares
+
+## 📋 Sobre o Projeto
+
+Skynet Vision foi criado para transformar o videomonitoramento tradicional em uma operacao preventiva. Em vez de depender apenas da atencao humana, a plataforma automatiza a deteccao de eventos criticos, reduz o tempo de resposta e gera inteligencia acionavel com dashboards e indicadores.
+
+O projeto adota **privacy by design**, com mecanismos de anonimizaao e boas praticas de governanca de dados, alinhado a principios de seguranca da informacao e LGPD.
+
+## 🎯 Missao
+
+Entregar uma plataforma acessivel e escalavel para monitoramento urbano inteligente, com foco em eficiencia operacional, confiabilidade e responsabilidade social.
+
+## 🧩 O Problema
+
+- Vigilancia reativa devido a fadiga humana.
+- Alto custo e baixa transparencia em solucoes proprietarias.
+- Dificuldade em transformar video em decisao rapida.
+
+## 🚀 A Proposta
+
+Uma arquitetura modular que integra:
+
+- Captura de video (cameras IP e bases gravadas)
+- Inferencia de IA (familia YOLO)
+- API de IA em Python (FastAPI)
+- Servicos gerais em Java (Spring Boot)
+- Persistencia com PostgreSQL
+- Interface web analitica (Next.js)
+
+> Nota: este repositorio concentra o **front-end web**. Os servicos de IA e back-end geral estao descritos no projeto, mas nao fazem parte deste codigo.
+
+## ✨ Funcionalidades Principais
+
+### 🛑 Deteccao Inteligente
+- Identificacao de eventos como aglomeracoes, quedas, invasoes e vandalismo
+- Inferencia em tempo real com baixa latencia
+
+### 🔔 Alertas e Escalonamento
+- Alertas multicanal (SMS, voz e Telegram)
+- Politicas de cooldown e rate limiting
+
+### 📊 Analitica Operacional
+- Dashboards com indicadores e ranking de eventos
+- Mapas de calor e filtros avancados
+
+### 🔐 Governanca e Confianca
+- Registro de ocorrencias e trilhas de auditoria
+- Anonimizacao de dados sensiveis
+
+## 🏗️ Arquitetura Tecnica
+
+### Stack Tecnologica (Front-end neste repo)
+```
+Next.js 16.2.6
+React 19.2.4
+PrimeReact 10.9.7
+PrimeIcons 7.0.0
+Tailwind CSS 4
+TypeScript 5
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Ecossistema Completo (visao do projeto)
+```
+IA e Processamento
+├── Python + FastAPI
+├── OpenCV + NumPy
+└── Ultralytics YOLO
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Servicos e API
+├── Java + Spring Boot
+└── Swagger (OpenAPI)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Dados
+└── PostgreSQL
 
-## Learn More
+Infraestrutura
+└── AWS + Terraform
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Estrutura de Diretorios
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                      # Rotas e paginas (App Router)
+│   ├── api/monitoring/        # Endpoint de monitoramento
+│   ├── auth/                  # Login e cadastro
+│   ├── dashboard/             # Painel principal
+│   ├── incidents/             # Ocorrencias
+│   ├── users/                 # Usuarios
+│   └── config/                # Configuracoes
+├── components/                # Componentes de UI
+│   ├── Dashboard/
+│   ├── Incidents/
+│   ├── Users/
+│   └── Layout/
+├── features/                  # Servicos e tipos por dominio
+└── providers/                 # Providers (PrimeReact)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Instalacao e Execucao
 
-## Deploy on Vercel
+### Pre-requisitos
+- Node.js 18+
+- npm, yarn, pnpm ou bun
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Passo a Passo
+1. Instale as dependencias
+```bash
+npm install
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2. Inicie o ambiente de desenvolvimento
+```bash
+npm run dev
+```
+
+3. Acesse
+```
+http://localhost:3000
+```
+
+### Scripts Disponiveis
+```
+npm run dev     # Ambiente de desenvolvimento
+npm run build   # Build de producao
+npm start       # Servidor de producao
+npm run lint    # Lint do codigo
+```
+
+## 🔐 Etica, Privacidade e Seguranca
+
+- Privacy by design com anonimizaao de dados sensiveis
+- Supervisao humana significativa nas decisoes criticas
+- Rastreabilidade e auditoria de ocorrencias
+
+## 🧭 Metodologia (Resumo)
+
+1) Aquisicao e preparacao de dados com normalizacao e data augmentation
+2) Modelos de IA e back-end modular com telemetria e auditoria
+3) Front-end analitico para apoio a decisao
+4) Implantacao em nuvem com DevOps e MLOps
+
+## 👥 Equipe de Desenvolvimento
+
+- Carlos Alberto de Aguiar
+- Joao Marcos Racanelli
+- Leonardo Marcondeli
+- Maicon Douglas Mendes Alves
+- Vinicius de Moraes de Godoi
+
+## 📄 Licenca
+
+Projeto academico desenvolvido para fins educacionais no curso de Engenharia de Computacao da UNISAL.
+
+## 📬 Contato
+
+Campus Maria Auxiliadora - Americana, SP
+
+Feito pela equipe Skynet Vision
