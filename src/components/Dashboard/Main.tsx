@@ -107,7 +107,7 @@ export default function DashboardPage() {
 	}, []);
 
 	return (
-		<div className="min-h-screen bg-black text-white">
+		<div className="dashboard-page min-h-screen bg-black text-white">
 			<style jsx global>{`
 				@keyframes livePulse {
 					0%,
@@ -125,11 +125,11 @@ export default function DashboardPage() {
 
 			<Sidebar />
 
-			<div className="min-h-screen lg:pl-[280px]">
+			<div className="dashboard-content min-h-screen lg:pl-[280px]">
 				<Topbar />
 
 				<main className="mx-auto max-w-[1600px] p-4 lg:p-6">
-					<section className="mb-6 flex flex-col gap-6 rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-md xl:flex-row xl:items-center xl:justify-between">
+					<section className="mb-6 flex flex-col gap-6 rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur-md sm:p-6 xl:flex-row xl:items-center xl:justify-between">
 						<div>
 							<h1 className="m-0 text-2xl font-bold text-slate-200 md:text-3xl">
 								Dashboard de Monitoramento
@@ -175,8 +175,8 @@ export default function DashboardPage() {
 						</div>
 					</section>
 
-					<section className="grid grid-cols-1 gap-6 xl:grid-cols-[1fr_380px]">
-						<div className="flex flex-col gap-6">
+					<section className="grid min-w-0 grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
+						<div className="flex min-w-0 flex-col gap-6">
 							<div className="overflow-hidden rounded-xl border border-white/10 bg-black/80">
 								<div className="flex flex-col gap-4 border-b border-white/10 bg-black/60 p-4 sm:flex-row sm:items-center sm:justify-between">
 									<div className="flex items-center gap-3">
@@ -205,14 +205,14 @@ export default function DashboardPage() {
 									</div>
 								</div>
 
-								<div className="relative aspect-video bg-black">
+									<div className="camera-video relative aspect-video bg-black">
 									<img
 										src={videoFeedUrl}
 										alt="Video Feed"
 										className="h-full w-full object-contain"
 									/>
 
-									<div className="absolute left-4 top-4 flex flex-col gap-2">
+									<div className="absolute left-2 top-2 hidden flex-col gap-1 text-xs sm:left-4 sm:top-4 sm:flex sm:gap-2">
 										<div className="flex items-center gap-2 rounded-md border border-white/10 bg-black/70 px-3 py-2 font-mono text-sm text-white backdrop-blur-md">
 											<i className="pi pi-calendar text-sky-400" />
 											{currentDate}

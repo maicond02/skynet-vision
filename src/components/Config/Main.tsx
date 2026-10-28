@@ -85,14 +85,14 @@ export default function ConfigPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-black text-white">
+		<div className="dashboard-page min-h-screen bg-black text-white">
 			<Sidebar />
 
-			<div className="min-h-screen lg:pl-[280px]">
+			<div className="dashboard-content min-h-screen lg:pl-[280px]">
 				<Topbar />
 
 				<main className="mx-auto max-w-[1600px] p-4 lg:p-6">
-					<section className="mb-6 flex flex-col gap-4 rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
+					<section className="mb-6 flex flex-col gap-4 rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:p-6">
 						<div>
 							<h1 className="m-0 text-2xl font-bold text-slate-200 md:text-3xl">
 								Configurações
@@ -119,7 +119,7 @@ export default function ConfigPage() {
 						</div>
 					</section>
 
-					<section className="rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-md">
+					<section className="rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur-md sm:p-6">
 						{loading ? (
 							<p className="m-0 text-sm text-white/60">Carregando...</p>
 						) : (

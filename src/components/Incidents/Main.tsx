@@ -67,14 +67,14 @@ export default function IncidentsPage() {
 	}, [incidents]);
 
 	return (
-		<div className="min-h-screen bg-black text-white">
+		<div className="dashboard-page min-h-screen bg-black text-white">
 			<Sidebar />
 
-			<div className="min-h-screen lg:pl-[280px]">
+			<div className="dashboard-content min-h-screen lg:pl-[280px]">
 				<Topbar />
 
 				<main className="mx-auto max-w-[1600px] p-4 lg:p-6">
-					<section className="mb-6 flex flex-col gap-4 rounded-xl border border-white/10 bg-black/40 p-6 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between">
+					<section className="mb-6 flex flex-col gap-4 rounded-xl border border-white/10 bg-black/40 p-4 backdrop-blur-md sm:flex-row sm:items-center sm:justify-between sm:p-6">
 						<div>
 							<h1 className="m-0 text-2xl font-bold text-slate-200 md:text-3xl">
 								Incidentes
@@ -94,7 +94,7 @@ export default function IncidentsPage() {
 					</section>
 
 					<section className="rounded-xl border border-white/10 bg-black/40 backdrop-blur-md">
-						<div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+						<div className="flex items-center justify-between border-b border-white/5 px-4 py-4 sm:px-6">
 							<div className="flex items-center gap-3">
 								<i className="pi pi-exclamation-triangle text-sky-400" />
 								<h2 className="m-0 text-sm font-semibold text-white">
@@ -108,7 +108,7 @@ export default function IncidentsPage() {
 							</div>
 						</div>
 
-						<div className="p-6">
+						<div className="p-4 sm:p-6">
 							{error ? (
 								<div className="rounded-lg border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-200">
 									{error}

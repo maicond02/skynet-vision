@@ -145,7 +145,7 @@ export default function RegisterPage() {
 
             <section className="flex min-h-screen items-center justify-center px-4 pb-10 pt-28">
                 <div className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] shadow-2xl shadow-sky-950/20 backdrop-blur-xl md:flex-row">
-                    <div className="flex w-full flex-col justify-center p-8 md:w-1/2 lg:p-12">
+                    <div className="flex w-full min-w-0 flex-col justify-center p-5 sm:p-8 md:w-1/2 lg:p-12">
                         <div className="mb-8">
                             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-xs font-medium text-sky-200">
                                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]" />

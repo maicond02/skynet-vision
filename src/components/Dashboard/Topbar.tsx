@@ -13,9 +13,11 @@ import {
 	getAuthenticatedUser,
 	logoutLocalUser,
 } from "../../features/auth/services/auth.service";
+import { useTheme } from "../../providers/theme-provider";
 
 export default function Topbar() {
 	const router = useRouter();
+	const { theme, toggleTheme } = useTheme();
 	const menuRef = useRef<MenuType>(null);
 	const [userInitial, setUserInitial] = useState("U");
 
@@ -56,7 +58,7 @@ export default function Topbar() {
 	];
 
 	return (
-		<header className="sticky top-0 z-[999] border-b border-white/10 bg-black px-4 py-4 lg:px-6">
+		<header className="dashboard-topbar sticky top-0 z-[999] border-b border-white/10 bg-black px-4 py-4 lg:px-6">
 			<style jsx global>{`
 				.dashboard-search .p-inputtext {
 					width: 100%;
@@ -78,8 +80,18 @@ export default function Topbar() {
 				}
 			`}</style>
 
-			<div className="flex items-center justify-end gap-4">
-				<div className="dashboard-search relative hidden w-full max-w-[420px] sm:block">
+			<div className="flex items-center justify-end gap-2 pl-12 sm:gap-4 lg:pl-0">
+				<button
+					type="button"
+					aria-label={`Ativar tema ${theme === "dark" ? "claro" : "escuro"}`}
+					aria-pressed={theme === "light"}
+					onClick={toggleTheme}
+					className="theme-switch"
+				>
+					<i className={`pi ${theme === "dark" ? "pi-sun" : "pi-moon"}`} aria-hidden="true" />
+					<span>{theme === "dark" ? "Claro" : "Escuro"}</span>
+				</button>
+				<div className="dashboard-search relative hidden min-w-0 w-full max-w-[420px] sm:block">
 					<i className="pi pi-search absolute left-3 top-1/2 z-10 -translate-y-1/2 text-white/60" />
 					<InputText placeholder="Buscar..." className="w-full" />
 				</div>
@@ -105,7 +117,12 @@ export default function Topbar() {
 					className="cursor-pointer border-2 border-white/20 bg-gradient-to-br from-sky-400 to-violet-600 font-semibold text-white transition hover:scale-105"
 				/>
 
-				<Menu ref={menuRef} model={menuItems} popup />
+				<Menu
+					ref={menuRef}
+					model={menuItems}
+					popup
+					className={theme === "light" ? "dashboard-user-menu-light" : undefined}
+				/>
 			</div>
 		</header>
 	);

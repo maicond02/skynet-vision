@@ -8,6 +8,7 @@ import { Password } from "primereact/password";
 
 import Sidebar from "../Dashboard/Sidebar";
 import Topbar from "../Dashboard/Topbar";
+import { useTheme } from "../../providers/theme-provider";
 
 import {
     createLocalUser,
@@ -42,6 +43,7 @@ function formatDate(value: string) {
 }
 
 export default function UsersMain() {
+    const { theme } = useTheme();
     const [users, setUsers] = useState<AuthUser[]>([]);
     const [formState, setFormState] = useState<UserFormState>(emptyFormState);
     const [loading, setLoading] = useState(true);
@@ -210,7 +212,7 @@ export default function UsersMain() {
     );
 
     return (
-        <div className="users-page min-h-screen bg-black text-white">
+        <div className="dashboard-page users-page min-h-screen bg-black text-white">
             <style jsx global>{`
                 .users-page .p-inputtext,
                 .users-page .p-password-input {
@@ -344,11 +346,11 @@ export default function UsersMain() {
 
             <Sidebar />
 
-            <div className="min-h-screen bg-black lg:pl-[280px]">
+            <div className="dashboard-content min-h-screen bg-black lg:pl-[280px]">
                 <Topbar />
 
                 <main className="mx-auto max-w-[1600px] p-4 lg:p-6">
-                    <section className="mb-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#050505] p-6 sm:flex-row sm:items-center sm:justify-between">
+                    <section className="mb-6 flex flex-col gap-4 rounded-2xl border border-white/10 bg-[#050505] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-6">
                         <div>
                             <h1 className="m-0 text-2xl font-bold text-slate-100 md:text-3xl">
                                 Usuários
@@ -378,7 +380,7 @@ export default function UsersMain() {
                     ) : null}
 
                     <section className="overflow-hidden rounded-2xl border border-white/10 bg-[#050505]">
-                        <div className="flex flex-col gap-4 border-b border-white/10 px-6 py-4 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex flex-col gap-4 border-b border-white/10 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                             <div className="flex items-center gap-3">
                                 <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-sky-400/20 bg-sky-400/10">
                                     <i className="pi pi-list text-sky-400" />
@@ -405,7 +407,7 @@ export default function UsersMain() {
                             />
                         </div>
 
-                        <div className="p-6">
+                        <div className="p-4 sm:p-6">
                             {users.length === 0 ? (
                                 <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-white/10 bg-white/[0.025] px-6 py-14 text-center">
                                     <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03]">
@@ -428,8 +430,8 @@ export default function UsersMain() {
                                     />
                                 </div>
                             ) : (
-                                <div className="overflow-hidden rounded-2xl border border-white/10">
-                                    <table className="min-w-full divide-y divide-white/10 text-left text-sm">
+                                <div className="overflow-x-auto rounded-2xl border border-white/10">
+                                    <table className="w-full min-w-[640px] divide-y divide-white/10 text-left text-sm">
                                         <thead className="bg-white/[0.035] text-xs uppercase tracking-wider text-white/40">
                                             <tr>
                                                 <th className="px-4 py-3">Nome</th>
@@ -509,7 +511,7 @@ export default function UsersMain() {
                         draggable={false}
                         resizable={false}
                         style={{ width: "min(92vw, 560px)" }}
-                        className="users-dialog"
+                        className={`users-dialog ${theme === "light" ? "users-dialog-light" : ""}`}
                         onHide={resetForm}
                     >
                         <div className="space-y-4">

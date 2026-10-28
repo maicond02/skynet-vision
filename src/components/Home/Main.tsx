@@ -108,7 +108,7 @@ export default function Main() {
     ];
 
     return (
-        <main className="relative isolate min-h-screen w-full overflow-hidden bg-[#0a0a0a] text-white selection:bg-sky-500/30">
+        <main className="home-page relative isolate min-h-screen w-full overflow-hidden bg-[#0a0a0a] text-white selection:bg-sky-500/30">
             <style jsx global>{`
                 .home-page .p-button {
                     border-radius: 999px;
@@ -168,8 +168,8 @@ export default function Main() {
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.028)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.028)_1px,transparent_1px)] bg-[size:48px_48px] opacity-60" />
             </div>
 
-            <div className="home-page">
-                <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-4 pb-16 pt-28">
+            <div>
+                <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-4 pb-12 pt-28 sm:pb-16">
                     <div className="text-center">
                         <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-xs font-medium text-sky-200 shadow-lg shadow-sky-950/20 backdrop-blur">
                             <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]" />
@@ -220,7 +220,7 @@ export default function Main() {
                     </div>
                 </section>
 
-                <section id="features" className="mx-auto max-w-6xl px-4 py-20">
+                <section id="features" className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
                     <div className="max-w-2xl">
                         <span className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-400">
                             Recursos
@@ -259,7 +259,7 @@ export default function Main() {
                     </div>
                 </section>
 
-                <section className="mx-auto max-w-6xl px-4 py-20">
+                <section className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
                     <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:items-center">
                         <div>
                             <span className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-400">
@@ -304,7 +304,7 @@ export default function Main() {
                     </div>
                 </section>
 
-                <section className="mx-auto max-w-6xl px-4 py-20">
+                <section className="mx-auto max-w-6xl px-4 py-14 sm:py-20">
                     <div className="text-center">
                         <span className="text-xs font-semibold uppercase tracking-[0.3em] text-sky-400">
                             Aplicações
@@ -340,7 +340,7 @@ export default function Main() {
                 </section>
 
                 <section id="contact" className="mx-auto max-w-6xl px-4 pb-24 pt-10">
-                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.03] p-8 text-center shadow-2xl shadow-sky-950/20 backdrop-blur md:p-12">
+                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 to-white/[0.03] p-5 text-center shadow-2xl shadow-sky-950/20 backdrop-blur sm:p-8 md:p-12">
                         <div className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-sky-500/10 blur-3xl" />
                         <div className="pointer-events-none absolute -bottom-20 -left-20 h-52 w-52 rounded-full bg-blue-500/10 blur-3xl" />
 

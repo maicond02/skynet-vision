@@ -2,6 +2,7 @@
 
 import { PrimeReactProvider } from "primereact/api";
 import type { ReactNode } from "react";
+import { ThemeProvider } from "./theme-provider";
 
 type PrimeReactProviderProps = {
   children: ReactNode;
@@ -10,5 +11,9 @@ type PrimeReactProviderProps = {
 export function AppPrimeReactProvider({
   children,
 }: PrimeReactProviderProps) {
-  return <PrimeReactProvider>{children}</PrimeReactProvider>;
+  return (
+    <ThemeProvider>
+      <PrimeReactProvider>{children}</PrimeReactProvider>
+    </ThemeProvider>
+  );
 }

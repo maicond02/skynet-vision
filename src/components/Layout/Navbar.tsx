@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 import { Button } from "primereact/button";
 import { Menubar } from "primereact/menubar";
 import type { MenuItem } from "primereact/menuitem";
+import { useTheme } from "../../providers/theme-provider";
 
 export default function Navbar() {
     const router = useRouter();
+    const { theme, toggleTheme } = useTheme();
 
     const items: MenuItem[] = [
         {
@@ -41,28 +43,41 @@ export default function Navbar() {
             icon: "pi pi-envelope",
             url: "#contact",
         },
+        { label: "Entrar", icon: "pi pi-sign-in", url: "/auth/login", className: "mobile-auth-item" },
+        { label: "Cadastrar", icon: "pi pi-user-plus", url: "/auth/register", className: "mobile-auth-item" },
     ];
 
     const start = (
-        <Link href="/" className="mr-4 text-lg font-bold tracking-tight text-white">
+        <Link href="/" className="skynet-brand mr-2 text-base font-bold tracking-tight text-white sm:mr-4 sm:text-lg">
             SKYNET<span className="text-sky-400">-VISION</span>
         </Link>
     );
 
     const end = (
-        <div className="flex items-center gap-2">
+        <div className="skynet-navbar-actions flex items-center gap-2">
+            <button
+                type="button"
+                aria-label={`Ativar tema ${theme === "dark" ? "claro" : "escuro"}`}
+                aria-pressed={theme === "light"}
+                onClick={toggleTheme}
+                className="theme-switch navbar-theme-switch"
+            >
+                <i className={`pi ${theme === "dark" ? "pi-sun" : "pi-moon"}`} aria-hidden="true" />
+                <span>{theme === "dark" ? "Claro" : "Escuro"}</span>
+            </button>
+
             <Button
                 label="Entrar"
                 text
                 onClick={() => router.push("/auth/login")}
-                className="text-white/70 hover:text-white"
+                className="navbar-auth-button text-white/70 hover:text-white"
             />
 
             <Button
                 label="Cadastrar"
                 outlined
                 onClick={() => router.push("/auth/register")}
-                className="border-sky-400/60 text-sky-300 hover:border-sky-300 hover:bg-sky-400/10 hover:text-sky-200"
+                className="navbar-auth-button border-sky-400/60 text-sky-300 hover:border-sky-300 hover:bg-sky-400/10 hover:text-sky-200"
             />
         </div>
     );
@@ -129,17 +144,31 @@ export default function Navbar() {
                     color: #ffffff !important;
                 }
 
+                @media (min-width: 961px) {
+                    .skynet-navbar .mobile-auth-item { display: none !important; }
+                }
+
                 @media (max-width: 960px) {
                     .skynet-navbar.p-menubar {
                         padding: 0.85rem 1rem !important;
                     }
 
-                    .skynet-navbar .p-menubar-root-list {
+                    .skynet-navbar.p-menubar .p-menubar-root-list {
                         border: 1px solid rgba(255, 255, 255, 0.1) !important;
                         border-radius: 1rem !important;
                         background: rgba(18, 18, 18, 0.94) !important;
                         padding: 0.5rem !important;
                         backdrop-filter: blur(16px);
+                    }
+
+                    .skynet-navbar .navbar-auth-button { display: none !important; }
+                    .skynet-navbar .navbar-theme-switch { width: 2.75rem; min-width: 2.75rem; padding: 0; justify-content: center; }
+                    .skynet-navbar .navbar-theme-switch span { display: none; }
+                    .skynet-navbar .p-menubar-button { order: 3; flex-shrink: 0; }
+                    .skynet-navbar .p-menubar-end { order: 2; margin-left: auto; }
+                    .theme-light .skynet-navbar.p-menubar .p-menubar-root-list {
+                        background: rgba(255, 255, 255, 0.96) !important;
+                        border-color: rgba(15, 23, 42, 0.12) !important;
                     }
                 }
             `}</style>

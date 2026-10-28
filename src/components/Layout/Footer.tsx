@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Footer() {
 	return (
-		<footer className="w-full border-t border-white/10 bg-transparent">
+		<footer className="public-footer w-full border-t border-white/10 bg-transparent">
 			<div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-10 md:grid-cols-3 md:items-start">
 				<div>
 					<div className="text-sm font-semibold tracking-wide">SKYNET-VISION</div>
