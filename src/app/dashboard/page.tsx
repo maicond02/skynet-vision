@@ -4,7 +4,7 @@ export default function DashboardPage() {
   return (
     <div>
       <Main />
-      <Footer />
+      <Footer dashboard />
     </div>
   );
 }

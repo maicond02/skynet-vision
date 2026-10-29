@@ -87,11 +87,12 @@ export default function Navbar() {
             <style jsx global>{`
                 .skynet-navbar.p-menubar {
                     border: none !important;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
                     border-radius: 0 !important;
-                    background: transparent !important;
+                    background: rgba(7, 12, 22, 0.88) !important;
                     padding: 1rem 2rem !important;
-                    backdrop-filter: none !important;
-                    box-shadow: none !important;
+                    backdrop-filter: blur(18px) saturate(150%) !important;
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16) !important;
                 }
 
                 .skynet-navbar .p-menubar-root-list {

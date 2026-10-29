@@ -5,7 +5,7 @@ export default function ConfigPage() {
 	return (
 		<div>
 			<Main />
-			<Footer />
+			<Footer dashboard />
 		</div>
 	);
 }

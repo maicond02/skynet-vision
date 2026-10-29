@@ -5,7 +5,7 @@ export default function IncidentsPage() {
 	return (
 		<div>
 			<Main />
-			<Footer />
+			<Footer dashboard />
 		</div>
 	);
 }

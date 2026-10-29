@@ -147,8 +147,8 @@ export default function LoginPage() {
             </div>
 
             <section className="flex min-h-screen items-center justify-center px-4 pb-10 pt-28">
-                <div className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] shadow-2xl shadow-sky-950/20 backdrop-blur-xl md:flex-row">
-                    <div className="flex w-full min-w-0 flex-col justify-center p-5 sm:p-8 md:w-1/2 lg:p-12">
+                <div className="relative z-10 flex w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.045] shadow-2xl shadow-sky-950/20 backdrop-blur-xl md:min-h-[730px] md:flex-row">
+                    <div className="flex w-full min-w-0 flex-col justify-start p-5 sm:p-8 md:w-1/2 lg:p-12">
                         <div className="mb-8">
                             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-400/10 px-4 py-2 text-xs font-medium text-sky-200">
                                 <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,0.9)]" />
@@ -258,7 +258,7 @@ export default function LoginPage() {
                         </p>
                     </div>
 
-                    <div className="relative hidden w-1/2 flex-col justify-end overflow-hidden border-l border-white/10 bg-white/[0.03] p-12 md:flex">
+                    <div className="relative hidden w-1/2 flex-col justify-start overflow-hidden border-l border-white/10 bg-white/[0.03] p-12 md:flex">
                         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:42px_42px]" />
                         <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
                         <div className="absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />

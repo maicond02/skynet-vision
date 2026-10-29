@@ -65,9 +65,10 @@ export default function Sidebar() {
 				/>
 			)}
 		<aside id="dashboard-navigation" className={`dashboard-sidebar fixed inset-y-0 left-0 z-[1003] w-[min(280px,85vw)] flex-col border-r border-white/10 bg-black text-slate-200 backdrop-blur-md lg:z-[1000] lg:flex lg:w-[280px] ${mobileOpen ? "flex" : "hidden"}`}>
-			<div className="flex items-center gap-3 p-4 text-[1.2rem] font-bold tracking-wide text-zinc-50">
-				<i className="pi pi-shield text-[1.3rem]" />
-				<span>Skynet</span>
+			<div className="flex items-center gap-3 p-4">
+				<Link href="/" onClick={() => setMobileOpen(false)} className="skynet-brand text-lg font-bold tracking-tight text-white no-underline">
+					SKYNET<span className="text-sky-400">-VISION</span>
+				</Link>
 				<button type="button" onClick={() => setMobileOpen(false)} aria-label="Fechar menu" className="ml-auto flex h-9 w-9 items-center justify-center rounded-lg text-slate-200 lg:hidden">
 					<i className="pi pi-times" aria-hidden="true" />
 				</button>

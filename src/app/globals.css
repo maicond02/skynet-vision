@@ -138,6 +138,12 @@ body {
   color: #0284c7 !important;
 }
 
+.theme-light .skynet-navbar.p-menubar {
+  background: rgba(248, 250, 252, 0.9) !important;
+  border-bottom-color: rgba(15, 23, 42, 0.12) !important;
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08) !important;
+}
+
 .theme-light .skynet-navbar-actions .p-button.p-button-outlined {
   border-color: rgba(2, 132, 199, 0.4) !important;
   color: #0369a1 !important;
@@ -168,6 +174,12 @@ body {
   background: #f5f9ff;
   border-color: rgba(15, 23, 42, 0.12) !important;
   color: #0f172a;
+}
+
+.theme-light .dashboard-footer {
+  background: #f5f9ff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #334155 !important;
 }
 
 .theme-light .public-footer [class*="text-white"],
@@ -335,9 +347,27 @@ body {
   color: #64748b !important;
 }
 
-.theme-light .dashboard-topbar .dashboard-search > i,
+.theme-light .dashboard-topbar .dashboard-search form > i,
 .theme-light .dashboard-topbar .p-button.p-button-text {
   color: #475569 !important;
+}
+
+.theme-light .dashboard-search-results {
+  background: #fff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.theme-light .dashboard-search-results button {
+  color: #334155 !important;
+}
+
+.theme-light .dashboard-search-results button:hover,
+.theme-light .dashboard-search-results button[aria-selected="true"] {
+  background: #f1f5f9 !important;
+}
+
+.theme-light .dashboard-search-results p {
+  color: #64748b !important;
 }
 
 .theme-light .dashboard-topbar .p-button.p-button-text:hover {
@@ -421,13 +451,6 @@ body {
 
 .users-dialog-light .users-primary-button.p-button {
   color: #fff !important;
-}
-
-/* PrimeReact Menubar (Navbar) transparente */
-.skynet-navbar.p-menubar {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
 }
 
 .skynet-navbar.p-menubar .p-menubar-root-list {

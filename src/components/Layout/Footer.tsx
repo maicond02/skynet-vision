@@ -1,7 +1,21 @@
 import Link from "next/link";
 import React from "react";
 
-export default function Footer() {
+export default function Footer({ dashboard = false }: { dashboard?: boolean }) {
+	if (dashboard) {
+		return (
+			<footer className="dashboard-footer w-full border-t border-white/10 bg-black text-slate-200 lg:pl-[280px]">
+				<div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-4 py-6 text-sm sm:flex-row sm:items-center sm:justify-between lg:px-6">
+					<div>
+						<div className="font-semibold tracking-wide">SKYNET-VISION</div>
+						<p className="mb-0 mt-1 text-xs opacity-70">Monitoramento inteligente em tempo real.</p>
+					</div>
+					<p className="m-0 text-xs opacity-70">© {new Date().getFullYear()} SKYNET-VISION · Todos os direitos reservados.</p>
+				</div>
+			</footer>
+		);
+	}
+
 	return (
 		<footer className="public-footer w-full border-t border-white/10 bg-transparent">
 			<div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-10 md:grid-cols-3 md:items-start">

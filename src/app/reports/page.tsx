@@ -5,7 +5,7 @@ export default function ReportsPage() {
   return (
     <div>
       <ReportsMain />
-      <Footer />
+      <Footer dashboard />
     </div>
   );
 }

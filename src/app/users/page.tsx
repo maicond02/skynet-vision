@@ -5,7 +5,7 @@ export default function UsersPage() {
 	return (
 		<div>
 			<Main />
-			<Footer />
+			<Footer dashboard />
 		</div>
 	);
 }
